@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Models;
+namespace Repository;
+
+
 
 public class AppDbContext : DbContext
 {

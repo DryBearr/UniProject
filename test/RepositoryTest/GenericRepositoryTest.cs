@@ -4,6 +4,7 @@ using Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
+using Repository;
 
 namespace RepositoryTest;
 public class GenericRepositoryTest

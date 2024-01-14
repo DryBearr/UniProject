@@ -5,7 +5,7 @@ using Repository.Models;
 using System;
 using Xunit.Abstractions;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-
+using Repository;
 namespace RepositoryTest;
 
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Repository;
 
 public class UserRepositoryTest
 {
