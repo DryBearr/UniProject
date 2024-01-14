@@ -18,5 +18,9 @@ namespace Repository.Models
             public int? ParentCommentId { get; set; }
             public virtual Comment ParentComment { get; set; }
             public virtual ICollection<Comment> Replies { get; set; }
+            public override string ToString()
+            {
+                return $"CommentId: {CommentId}, DateCreated: {DateCreated}";
+            }
         }
 }

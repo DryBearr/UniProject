@@ -10,6 +10,11 @@ namespace Repository.Models
         public string Username { get; set; }
         [Required]
         public string PasswordHash { get; set; }
+
+        public override string ToString()
+        {
+            return $"UserID: {UserId}, Username: {Username}";
+        }
     }
 }
 

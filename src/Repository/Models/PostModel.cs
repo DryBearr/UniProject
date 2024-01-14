@@ -15,6 +15,12 @@ namespace Repository.Models
         public int DisLikes {get; set;}
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public override string ToString()
+        {
+            return $"PostId: {PostId}, DateCreated: {DateCreated}";
+        }
     }
+
 
 }
