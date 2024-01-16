@@ -18,7 +18,18 @@ public class AppDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        modelBuilder.Entity<Post>()
+            .HasMany(p => p.Comments)
+            .WithOne(c => c.Post)
+            .HasForeignKey(c => c.PostId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Comment>()
+            .HasMany(c => c.Replies)
+            .WithOne(r => r.ParentComment) 
+            .HasForeignKey(c => c.ParentCommentId)
+            .IsRequired(false) 
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

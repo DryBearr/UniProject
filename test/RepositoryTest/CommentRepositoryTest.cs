@@ -24,13 +24,13 @@ public class CommentRepositoryTest
 
             for(int i = 1; i <= 10; i ++)
             {
-                var baseComment = new Comment{
-                                    CommentId = i,
-                                    Content = $"Comment{i}",
-                                    PostId = i,
-                                    UserId = i,
-                                    DateCreated = DateTime.UtcNow
-                                };
+                var baseComment = new Comment {
+                    CommentId = i,
+                    Content = $"Comment{i}",
+                    PostId = i,
+                    UserId = i,
+                    DateCreated = DateTime.UtcNow
+                };
                 commentsGroupByPostId[i] = i;
 
                 await context.Comments.AddAsync(baseComment);
@@ -106,13 +106,14 @@ public class CommentRepositoryTest
 
             for(int i = 1; i <= 10; i ++) 
             {
-                var baseComment = new Comment{
-                                    CommentId = i,
-                                    Content = $"Comment{i}",
-                                    PostId = i,
-                                    UserId = i,
-                                    DateCreated = DateTime.UtcNow
-                                };
+                var baseComment = new Comment {
+                    CommentId = i,
+                    Content = $"Comment{i}",
+                    PostId = i,
+                    UserId = i,
+                    ParentCommentId = null,
+                    DateCreated = DateTime.UtcNow
+                };
                 commentsGroupByPostId[i] = i;
 
                 await context.Comments.AddAsync(baseComment);
@@ -143,20 +144,17 @@ public class CommentRepositoryTest
                 await context.SaveChangesAsync();
             }
 
-            
             var commentRepository  = new CommentRepository(context);
             var retrivedComments = new Dictionary<int, List<Comment>>();
 
             for(int i = 1; i <= 10; i ++)
-                retrivedComments[i] = (await commentRepository.GetRepliesByCommentIdAsync(i)).ToList();
+                retrivedComments[i] = (await commentRepository.GetCommentsByPostIdAsync(i)).ToList();
 
             for(int i = 1; i <= 10; i ++)
             {
                 foreach(var comment in retrivedComments[i])
                     Assert.Equal(i, comment.PostId);
             }
-        
-        
         }
     }
 

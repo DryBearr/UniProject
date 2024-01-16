@@ -17,22 +17,18 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
         _transaction = _context.Database.BeginTransaction();
     }
-
     public ICommentRepository Comments
     {
         get { return _commentRepository ??= new CommentRepository(_context); }
     }
-
     public IPostRepository Posts
     {
         get { return _postRepository ??= new PostRepository(_context); }
     }
-
     public IUserRepository Users
     {
         get { return _userRepository ??= new UserRepository(_context); }
     }
-
     public async Task SaveAsync()
     {
         try
@@ -50,10 +46,9 @@ public class UnitOfWork : IUnitOfWork
     {
         await _transaction.RollbackAsync();
     }
-
-
     public void Dispose()
     {
         _context.Dispose();
     }
+
 }

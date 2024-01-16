@@ -15,7 +15,7 @@ namespace Repository.Repositories
             return await _context.Set<Comment>().Where(c => c.ParentCommentId == commentId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsByPostId(int postId)
+        public async Task<IEnumerable<Comment>> GetCommentsByPostIdAsync(int postId)
         {
             return await _context.Set<Comment>().Where(c => c.PostId == postId).ToListAsync();
         }
