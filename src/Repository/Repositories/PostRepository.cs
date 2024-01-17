@@ -5,7 +5,7 @@ namespace Repository.Repositories
 {
     public class PostRepository : GenericRepository<Post>, IPostRepository
     {
-        public PostRepository(DbContext context) : base(context)
+        public PostRepository(AppDbContext context) : base(context)
         {
         }
 

@@ -6,6 +6,12 @@ public class UserDto
     public string UnhashedPassword {get; set;}
 }
 
+public class GetUserDto
+{
+    public int UserId {get; set;}
+    public string Username {get; set;}
+}
+
 public class UpdateUserDto
 {
     public int UserId {get; set;}
@@ -41,6 +47,7 @@ public class ReplyCommentDto
 {
     public int? CommentId {get; set;}
     public int ParentCommentId {get; set;}
+    public DateTime DateCreated {get; set;}
     public int UserId {get; set;}
     public string Content {get; set;}
 }

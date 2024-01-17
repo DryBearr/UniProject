@@ -6,10 +6,10 @@ namespace Repository.Repositories
 {
     public class GenericRepository<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext _context;
+        protected readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
       
-        public GenericRepository(DbContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();

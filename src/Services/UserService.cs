@@ -14,7 +14,6 @@ public class UserService : IUserService
         _uow = uow;
         _mapper = mapper;
     }
-
     public async Task CreateUser(UserDto user)
     {
         try
@@ -43,7 +42,6 @@ public class UserService : IUserService
             throw new Exception("Could not Create new User", e);
         }
     }
-
     public async Task DeleteUserById(int id)
     {
         try
@@ -63,8 +61,7 @@ public class UserService : IUserService
         }
 
     }
-
-    public async Task<UserDto> GetUserById(int id)
+    public async Task<GetUserDto> GetUserById(int id)
     {
         try
         {
@@ -72,15 +69,14 @@ public class UserService : IUserService
             if(user == null)
                 throw new Exception($"Could not get, User with {id} id does not exist!");
 
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<GetUserDto>(user);
         }
         catch(Exception e)
         {
             throw new Exception($"Could not get User", e);
         }
     }
-
-    public async Task<UserDto> GetUserByUsername(string username)
+    public async Task<GetUserDto> GetUserByUsername(string username)
     {
         try
         {
@@ -88,14 +84,13 @@ public class UserService : IUserService
             if(user == null)
                 throw new Exception($"Could not get, User with {username} username does not exist!");
 
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<GetUserDto>(user);
         }
         catch(Exception e)
         {
             throw new Exception($"Could not get User", e);
         }
     }
-
     public async Task UpdataUser(UpdateUserDto user)
     {
         try
@@ -123,6 +118,22 @@ public class UserService : IUserService
             throw new Exception("Could not update  User", e);
         }
     }
+    public async Task<IEnumerable<GetUserDto>> GetAllUsers()
+    {
+        try
+        {
+            var users = new List<GetUserDto>();
+            var retrievedUsers = await _uow.Users.GetAllAsync();
+            
+            foreach(var user in retrievedUsers)
+                users.Add(_mapper.Map<GetUserDto>(user));
 
+            return users;
+        }
+        catch(Exception e)
+        {
+            throw new Exception("Could get all users", e);
+        }
+    }
 
 }

@@ -5,7 +5,7 @@ namespace Repository.Repositories
 {
     public class CommentRepository : GenericRepository<Comment>, ICommentRepository
     {
-        public CommentRepository(DbContext context) : base(context)
+        public CommentRepository(AppDbContext context) : base(context)
         {
         }
 

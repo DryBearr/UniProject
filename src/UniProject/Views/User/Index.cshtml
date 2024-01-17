@@ -1,0 +1,17 @@
+@model IEnumerable<Services.GetUserDto> 
+
+<h2>Users</h2>
+
+<table>
+    <tr>
+        <th>UserId</th>
+        <th>UserName</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.UserId</td>
+            <td>@user.Username</td>
+        </tr>
+    }
+</table>

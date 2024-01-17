@@ -30,7 +30,7 @@ public class PostService : IPostService
             tempPost.DateCreated = DateTime.UtcNow;    
 
             var newPost = _mapper.Map<Post>(tempPost);
-
+            
             await _uow.Posts.AddAsync(newPost);
             await _uow.SaveAsync();
         }
@@ -64,12 +64,12 @@ public class PostService : IPostService
         try
         {
             var retrievedPost = await _uow.Posts.GetByIdAsync(id);
-            if(retrievedPost == null)
+            if (retrievedPost == null)
                 throw new Exception($"Post with id {id} does not exist");
 
 
             var comments = new List<CommentDto>();
-            foreach(var comment in await _uow.Comments.GetCommentsByPostIdAsync(id) )
+            foreach (var comment in await _uow.Comments.GetCommentsByPostIdAsync(id) )
                 comments.Add(_mapper.Map<CommentDto>(comment)); 
                         
             return comments;
@@ -85,12 +85,12 @@ public class PostService : IPostService
         try
         {
             var retrievedPosts = await _uow.Posts.GetByIdAsync(id);
-            if(retrievedPosts == null)
+            if (retrievedPosts == null)
                 throw new Exception($"Post with {id} id does not exist");
 
             return _mapper.Map<PostDto>(retrievedPosts);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new Exception("could not get Post", e);
         }
