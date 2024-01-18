@@ -1,16 +1,15 @@
-using Contollers;
 using Services;
 using Repository;
 using Repository.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-
-
-
-
+using Contollers;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(ServiceLayerMapper), typeof(ControllerLayerMapper));
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -36,9 +35,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
+app.MapControllers();
 
 app.Run();

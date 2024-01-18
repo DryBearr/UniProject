@@ -1,0 +1,18 @@
+<h1>Details</h1>    
+@if (Model != null)
+{
+    <table>
+        <tr>
+            <th>UserId</th>
+            <th>UserName</th>
+        </tr>
+        <tr>
+            <td>@Model.UserId</td>
+            <td>@Model.Username</td>
+        </tr>
+    </table>
+}
+else
+{
+    <p>No user found.</p>
+}

@@ -132,7 +132,7 @@ public class UserService : IUserService
         }
         catch(Exception e)
         {
-            throw new Exception("Could get all users", e);
+            throw new Exception("Could not get all users", e);
         }
     }
 
