@@ -4,6 +4,8 @@ using Contollers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Services;
+using DTOs;
+using System.Diagnostics;
 
 [Route("Users")]
 public class UserController : Controller
@@ -80,28 +82,33 @@ public class UserController : Controller
         }
     }
 
+    [HttpGet("Create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
     [HttpPost("Create")]
     public async Task<IActionResult> Create(RequestUserDto requestUserDto)
     {
+        Console.WriteLine("IM IN MAZAFAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         try
         {
             Console.WriteLine("__________________________________");
-            Console.WriteLine(requestUserDto);
+            Console.WriteLine($"USERNAME: {requestUserDto.Username}");
+            Console.WriteLine($"PASSWORD: {requestUserDto.UnhashedPassword}");
             Console.WriteLine("__________________________________");
-            if (ModelState.IsValid)
-            {
-           
-                var user = _mapper.Map<UserDto>(requestUserDto);
-                await _userService.CreateUser(user);
+            var user = _mapper.Map<UserDto>(requestUserDto);
+            await _userService.CreateUser(user);
 
-                return RedirectToAction(nameof(Index));
-            }
-
-
-            return View(requestUserDto);
+            return RedirectToAction(nameof(Index));
         }
         catch (Exception e)
         {
+            Console.WriteLine("__________________________________");
+            Console.WriteLine(e.Message);
+            Console.WriteLine(e.ToString());
+            Console.WriteLine("__________________________________");
             return RedirectToAction("Error", "Home");
         }
         

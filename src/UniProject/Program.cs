@@ -4,6 +4,7 @@ using Repository.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Contollers;
+using DTOs;
 
 
 var builder = WebApplication.CreateBuilder(args);
