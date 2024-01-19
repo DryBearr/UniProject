@@ -9,5 +9,9 @@ public class ControllerLayerMapper : Profile
     {
         CreateMap<UserDto, ResponseUserDto>();
         CreateMap<GetUserDto, ResponseUserDto>();
+        CreateMap<UserDto, RequestUserDto>();
+        
+        CreateMap<RequestUserDto, UpdateUserDto>()
+            .ForMember(dest => dest.UserId, opt => opt.Ignore());
     }
 }

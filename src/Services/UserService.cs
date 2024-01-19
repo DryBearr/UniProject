@@ -91,7 +91,7 @@ public class UserService : IUserService
             throw new Exception($"Could not get User", e);
         }
     }
-    public async Task UpdataUser(UpdateUserDto user)
+    public async Task UpdateUser(UpdateUserDto user)
     {
         try
         { 
@@ -109,6 +109,7 @@ public class UserService : IUserService
             var newUser = _mapper.Map<User>(user);
             newUser.PasswordHash = Utils.GetPasswordHash(newUser.PasswordHash);
             
+
             await _uow.Users.UpdateAsync(newUser);
             await _uow.SaveAsync();  
         }

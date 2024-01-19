@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Error";
+    var errorMessage = ViewData["ErrorMessage"]?.ToString();
+}
+
+<h1>Error</h1>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p>Error Message: @errorMessage</p>
+}
+else
+{
+    <p>An error occurred. Please try again later.</p>
+}
+<a href="@Url.Action("Index", "Home")" class="btn btn-success">Go to Home</a>

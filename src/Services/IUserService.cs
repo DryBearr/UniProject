@@ -11,7 +11,7 @@ public interface IUserService
     Task<IEnumerable<GetUserDto>> GetAllUsers();
     Task CreateUser(UserDto user);
     Task DeleteUserById(int id);
-    Task UpdataUser (UpdateUserDto user);
+    Task UpdateUser (UpdateUserDto user);
 }
 
 

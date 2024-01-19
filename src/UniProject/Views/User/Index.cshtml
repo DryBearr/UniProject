@@ -1,19 +1,24 @@
 @using DTOs
-
 @model IEnumerable<ResponseUserDto>
-    
+
 @if (Model != null && Model.Any())
 {
     <table>
         <tr>
             <th>UserId</th>
             <th>UserName</th>
+            <th>Actions</th>
         </tr>
         @foreach(var user in Model)
         {
             <tr>
                 <td>@user.UserId</td>
                 <td>@user.Username</td>
+                <td>
+                    <a href="@Url.Action("Details", "User", new { id = user.UserId })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Update", "User", new { id = user.UserId })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
     </table>
@@ -22,3 +27,8 @@ else
 {
     <p>No user found.</p>
 }
+
+<a href="@Url.Action("Create", "User")" class="btn btn-success">Create New User</a>
+<br>
+<a href="@Url.Action("Index", "Home")" class="btn btn-success">Go to Home</a>
+

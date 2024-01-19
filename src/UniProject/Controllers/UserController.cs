@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Services;
 using DTOs;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 [Route("Users")]
 public class UserController : Controller
@@ -32,7 +33,7 @@ public class UserController : Controller
         }
         catch(Exception e)
         {
-            return RedirectToAction("Error", "Home");   
+            throw new Exception("Something Bad happend :( !", e);   
         }
     }
 
@@ -46,7 +47,7 @@ public class UserController : Controller
         }
         catch (Exception e)
         {
-            return RedirectToAction("Error", "Home");   
+            throw new Exception($"Could not Get Details about user with Id {id}", e);
         }
     } 
 
@@ -64,7 +65,7 @@ public class UserController : Controller
         }
         catch (Exception e)
         {
-            return RedirectToAction("Error", "Home");
+            throw new Exception($"Could Not Delete User With Id:{id}", e);
         }
     }
 
@@ -78,7 +79,7 @@ public class UserController : Controller
         }
         catch (Exception e)
         {
-            return RedirectToAction("Error", "Home");
+            throw new Exception($"Could Not Delete User With Id:{id}", e);
         }
     }
 
@@ -91,13 +92,8 @@ public class UserController : Controller
     [HttpPost("Create")]
     public async Task<IActionResult> Create(RequestUserDto requestUserDto)
     {
-        Console.WriteLine("IM IN MAZAFAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         try
         {
-            Console.WriteLine("__________________________________");
-            Console.WriteLine($"USERNAME: {requestUserDto.Username}");
-            Console.WriteLine($"PASSWORD: {requestUserDto.UnhashedPassword}");
-            Console.WriteLine("__________________________________");
             var user = _mapper.Map<UserDto>(requestUserDto);
             await _userService.CreateUser(user);
 
@@ -105,12 +101,47 @@ public class UserController : Controller
         }
         catch (Exception e)
         {
-            Console.WriteLine("__________________________________");
-            Console.WriteLine(e.Message);
-            Console.WriteLine(e.ToString());
-            Console.WriteLine("__________________________________");
-            return RedirectToAction("Error", "Home");
+            throw new Exception("Could Not Create New User ", e);
         }
         
+    }
+
+
+    [HttpGet("Post/{id}")]
+    public async Task<IActionResult> Update(int id)
+    {
+        try
+        {
+            var user = await _userService.GetUserById(id); 
+
+            var model = new RequestUserDto
+            {
+                Username = user.Username,
+                UnhashedPassword = "",
+            };
+
+            return View(model);
+        }
+        catch(Exception e)
+        {
+            throw new Exception($"Could Not Update User With Id: {id}", e);
+        }
+    }
+
+    [HttpPost("Post/{id}")]
+    public async Task<IActionResult> Update(int id, RequestUserDto user)
+    {
+        try
+        {
+            var updatedUser = _mapper.Map<UpdateUserDto>(user);
+            updatedUser.UserId = id; 
+            await _userService.UpdateUser(updatedUser);
+
+            return RedirectToAction("Index"); 
+        }
+        catch(Exception e)
+        {
+            throw new Exception($"Could Not Update User With Id: {id}", e);
+        }
     }
 }

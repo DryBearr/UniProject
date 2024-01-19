@@ -6,9 +6,13 @@ public class ServiceLayerMapper : Profile
 {
     public ServiceLayerMapper()
     {
-        CreateMap<User, UserDto>();
+        CreateMap<UserDto, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.UnhashedPassword))
+            .ForMember(dest => dest.UserId, opt => opt.Ignore());
         CreateMap<User, GetUserDto>();
-        CreateMap<User, UpdateUserDto>();
+        
+        CreateMap<UpdateUserDto, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.UnhashedPassword));
 
         CreateMap<Post, PostDto>();
         CreateMap<Post, CreatePostDto>();
